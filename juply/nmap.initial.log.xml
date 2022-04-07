@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.92 scan initiated Mon Apr  4 11:45:11 2022 as: nmap -p- -oA nmap.initial.log 10.10.10.16 -->
+<nmaprun scanner="nmap" args="nmap -p- -oA nmap.initial.log 10.10.10.16" start="1649087111" startstr="Mon Apr  4 11:45:11 2022" version="7.92" xmloutputversion="1.05">
+<scaninfo type="connect" protocol="tcp" numservices="65535" services="1-65535"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="10.10.10.16" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<taskprogress task="Connect Scan" time="1649087123" percent="0.71"/>
