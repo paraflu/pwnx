@@ -8,6 +8,7 @@ top.debug = true;
 	<body>
 <script	>
 document.getElementsByTagName('body')[0].innerText = new Date();
+alert('here');
 </script>
 	</body>
 </html>
