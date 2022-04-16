@@ -23,39 +23,36 @@ function toconsole(string $msg)
 	fclose($stdout);
 }
 
+// for ($i = 1; $i < 20; $i++) {
+// 	toconsole("NewLine\n");
+// }
 
+if (isset($_GET['callback'])) {
+	toconsole(file_get_contents('php://input'));
+	exit;
+}
 
 // toconsole('SERVER:' . print_r($_SERVER, true));
-toconsole("GET:"  . print_r($_GET, true));
-toconsole('POST:' . print_r($_POST, true));
+// toconsole("GET:"  . print_r($_GET, true));
+// toconsole('POST:' . print_r($_POST, true));
 
 header('Access-Control-Allow-Origin: *');
-toconsole('new request');
-$entityBody = file_get_contents('php://input');
-toconsole('BODY:\n');
-try {
-	toconsole(print_r(json_decode($entityBody), true) . "\n");
-} catch (Exception $e) {
-	toconsole($entityBody . "\n");
-}
+// toconsole('new request');
+// $entityBody = file_get_contents('php://input');
+// toconsole('BODY:\n');
+// try {
+// 	toconsole($entityBody . "\n");
+// } catch (Exception $e) {
+// 	toconsole($entityBody . "\n");
+// }
 ?>
 
 <html>
-
 <head>
-	<script src="index.js"></script>
+	<!-- <script src="index.js"></script> -->
 </head>
 
 <body>
-	POST
-	<?php
-	var_dump($_POST);
-	?>
-
-	BODY
-	<?php
-	var_dump($entityBody);
-	?>
 </body>
 
 </html>
