@@ -32,9 +32,9 @@ if (isset($_GET['callback'])) {
 	exit;
 }
 
-// toconsole('SERVER:' . print_r($_SERVER, true));
-// toconsole("GET:"  . print_r($_GET, true));
-// toconsole('POST:' . print_r($_POST, true));
+toconsole('SERVER:' . print_r($_SERVER, true));
+toconsole("GET:"  . print_r($_GET, true));
+toconsole('POST:' . print_r($_POST, true));
 
 header('Access-Control-Allow-Origin: *');
 // toconsole('new request');
