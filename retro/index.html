@@ -1,0 +1,200 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.4/build/98.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css" />
+    <title>SandCalc</title>
+  </head>
+  <body>
+    <div
+      id="container"
+      class="container console__container d-flex align-items-center justify-content-center"
+    >
+      <div class="console container-fluid">
+        <div class="window">
+          <div class="title-bar">
+            <div class="title-bar-text">Sandcalc v0.8 beta</div>
+            <div class="title-bar-controls px-2">
+              <button aria-label="Minimize"></button>
+              <button aria-label="Maximize"></button>
+              <button aria-label="Close"></button>
+            </div>
+          </div>
+          <div class="window-body p-3">
+            <ul id="workspace" class="list-group px-1 console__workspace">
+              <li class="list-group-item p-2">
+                <div class="row console__command--command" <div="">
+                  <p class="mb-0"><b>[ 17:22:51 ]$</b> -1*1e+57</p>
+                </div>
+
+                <div class="row console__command--output">
+                  <div class="col">&gt; -1e+57</div>
+                </div>
+              </li>
+
+              <li class="list-group-item p-2">
+                <div class="row console__command--command" <div="">
+                  <p class="mb-0"><b>[ 17:22:57 ]$</b> 1/0</p>
+                </div>
+
+                <div class="row console__command--output">
+                  <div class="col">
+                    &gt; Expected number, got string as output.
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item p-2">
+                <div class="row console__command--command" <div="">
+                  <p class="mb-0"><b>[ 17:22:59 ]$</b> 1/0</p>
+                </div>
+
+                <div class="row console__command--output">
+                  <div class="col">
+                    &gt; Expected number, got string as output.
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item p-2">
+                <div class="row console__command--command" <div="">
+                  <p class="mb-0"><b>[ 17:23:54 ]$</b> 1+1</p>
+                </div>
+
+                <div class="row console__command--output">
+                  <div class="col">&gt; 2</div>
+                </div>
+              </li>
+
+              <li class="list-group-item p-2">
+                <div class="row console__command--command" <div="">
+                  <p class="mb-0"><b>[ 17:29:19 ]$</b> 1+1</p>
+                </div>
+
+                <div class="row console__command--output">
+                  <div class="col">&gt; 2</div>
+                </div>
+              </li>
+
+              <li class="list-group-item p-2">
+                <div class="row console__command--command" <div="">
+                  <p class="mb-0"><b>[ 17:29:19 ]$</b> 1+1</p>
+                </div>
+
+                <div class="row console__command--output">
+                  <div class="col">&gt; 2</div>
+                </div>
+              </li>
+            </ul>
+            <fieldset>
+              <legend>Controls</legend>
+              <section class="field-row p-3" style="justify-content: flex-end">
+                <input
+                  type="text"
+                  id="expInput"
+                  class="form-control"
+                  placeholder="Expression"
+                  aria-label="Expression"
+                  aria-describedby="basic-addon2"
+                />
+                <button onclick="submitCommand()">Submit</button>
+                <button onclick="clearHistory('calcHistory')">Clear</button>
+              </section>
+            </fieldset>
+          </div>
+        </div>
+        <div class="container px-0">
+          <div class="input-group mb-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/sanitize.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <script>
+      const workspace = document.getElementById("workspace");
+      let commandHistory = JSON.parse(localStorage.getItem("calcHistory"));
+      let image = new Image();
+
+      function renderCommands() {
+        workspace.innerHTML = "";
+        if (commandHistory !== null) {
+          commandHistory.forEach((el) => {
+            workspace.innerHTML += `
+                <li class="list-group-item p-2">
+                    <div class="row console__command--command"
+                        <div class="col"><p class="mb-0"><b>[ ${new Date(
+                          el.timestamp
+                        ).toLocaleTimeString()} ]$</b> ${escapeHtml(
+              el.command
+            )}</p></div>
+                    </div>
+                    <div class="row console__command--output">
+                        <div class="col">
+                            > ${escapeHtml(el.output)}
+                        </div>
+                    </div>
+                </li>
+        `;
+          });
+        }
+      }
+
+      async function submitCommand() {
+        let expInput = document.getElementById("expInput");
+        fetch(`/calc?exp=${encodeURIComponent(expInput.value)}`)
+          .then((res) => {
+            res.text().then((txt) => {
+              appendHistory("calcHistory", expInput.value, txt);
+            });
+          })
+          .catch(() => {
+            console.error("Something went wrong solving the calculation.");
+          });
+      }
+
+      renderCommands();
+    </script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        background: #008081;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      #workspace {
+        height: 50vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+
+      .list-group-item:nth-child(even) {
+        background: rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .alert__container {
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+      }
+
+      .console__container {
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+  </body>
+</html>
