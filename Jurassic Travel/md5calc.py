@@ -30,7 +30,7 @@ def notify(message:str):
     subprocess.Popen(['notify-send', message])
     return
 
-for t in range(66 * 1000000, 201 * 1000000, 1000000):
+for t in range(200 * 1000000, 300 * 1000000, 1000000):
     d = md5(bytearray(f'{t}'.encode()))
     print(Fore.YELLOW + f'[~] token for {t} is {d.hexdigest()}'+ Style.RESET_ALL)
 

@@ -198,3 +198,10 @@ Do you prefer to land on Earth during Jurassic epoch? token = md5(201000000) = 9
 Be careful to insert time values. You could land on dangerous environments, full of predators or toxic atmosphere!
 
 ```
+
+
+Tring with md5 bruteforce got 252000000 as time -> 35dffc90d765f825642527c6e14e3904 and the message:
+
+```
+Bzzz... Y0U re4cH3d Tr14sS1c P3r10d...bzzz... 3nD 0f End-Permian Extinction... Quiet place. S3cr3t 4 suRv1vinG: S4v3th3E4rTh 
+```
